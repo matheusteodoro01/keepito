@@ -24,8 +24,6 @@ import Header from "../Header";
 
 
 // pages
-
-import Notifications from "../../pages/notifications";
 import Icons from "../../pages/icons";
 import Charts from "../../pages/charts";
 import Menu from "../../pages/menu/Menu"
