@@ -35,7 +35,6 @@ export default function Menu() {
 
   return (
     <>
-      <PageTitle title="Cursos" />
       <Grid container spacing={2}>
         {courses.map(course => (
           <Grid item xs={12} sm={4} key={course.id}>
