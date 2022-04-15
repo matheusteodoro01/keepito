@@ -25,7 +25,6 @@ import Header from "../Header";
 
 // pages
 
-import Typography from "../../pages/typography";
 import Notifications from "../../pages/notifications";
 import Icons from "../../pages/icons";
 import Charts from "../../pages/charts";
