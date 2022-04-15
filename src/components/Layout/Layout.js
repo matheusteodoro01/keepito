@@ -67,11 +67,11 @@ function Layout(props) {
             <div>
               <Link
                 color={'primary'}
-                href={'https://flatlogic.com/'}
+                href={'https://keepito-closer.vercel.app'}
                 target={'_blank'}
                 className={classes.link}
               >
-                Flatlogic
+                Criar Curso
               </Link>
               <Link
                 color={'primary'}
@@ -79,7 +79,7 @@ function Layout(props) {
                 target={'_blank'}
                 className={classes.link}
               >
-                About Us
+                Sobre nós
               </Link>
               <Link
                 color={'primary'}
@@ -87,7 +87,7 @@ function Layout(props) {
                 target={'_blank'}
                 className={classes.link}
               >
-                Blog
+                Contato
               </Link>
             </div>
             <div>
@@ -100,7 +100,7 @@ function Layout(props) {
                     path={FacebookIcon}
                     size={1}
                     color="#6E6E6E99"
-                  />z
+                  />
                 </IconButton>
               </Link>
               <Link
