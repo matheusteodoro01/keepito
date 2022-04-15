@@ -108,34 +108,7 @@ export default function Header(props) {
   return (
     <AppBar position="fixed" className={classes.appBar}>
       <Toolbar className={classes.toolbar}>
-        <IconButton
-          color="inherit"
-          onClick={() => toggleSidebar(layoutDispatch)}
-          className={classNames(
-            classes.headerMenuButtonSandwich,
-            classes.headerMenuButtonCollapse,
-          )}
-        >
-          {layoutState.isSidebarOpened ? (
-            <ArrowBackIcon
-              classes={{
-                root: classNames(
-                  classes.headerIcon,
-                  classes.headerIconCollapse,
-                ),
-              }}
-            />
-          ) : (
-            <MenuIcon
-              classes={{
-                root: classNames(
-                  classes.headerIcon,
-                  classes.headerIconCollapse,
-                ),
-              }}
-            />
-          )}
-        </IconButton>
+
         <Typography variant="h6" weight="medium" className={classes.logotype}>
           Keepito
         </Typography>
