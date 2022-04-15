@@ -108,7 +108,7 @@ async function login(dispatch, login, password, history, setIsLoading, setError,
                 api.defaults.headers['keepitoAuthorization'] = `${response.headers.authorization}`
                 setIsLoading(false)
                 dispatch({ type: actions.loginSucces });
-                history.push('/app/dashboard')
+                history.push('/app/menu')
             }, 2000);
         })
 
