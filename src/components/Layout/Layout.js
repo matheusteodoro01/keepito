@@ -47,7 +47,6 @@ function Layout(props) {
     <div className={classes.root}>
       <>
         <Header history={props.history} />
-        <Sidebar />
         <div
           className={classnames(classes.content, {
             [classes.contentShift]: layoutState.isSidebarOpened,
@@ -55,12 +54,7 @@ function Layout(props) {
         >
           <div className={classes.fakeToolbar} />
           <Switch>
-            <Route path="/app/dashboard" component={Dashboard} />
-            <Route path="/app/typography" component={Typography} />
             <Route path="/app/menu" component={Menu} />
-            <Route path="/app/tables" component={Tables} />
-            <Route path="/app/courses" component={Courses} />
-            <Route path="/app/notifications" component={Notifications} />
             <Route
               exact
               path="/app/ui"
@@ -113,7 +107,7 @@ function Layout(props) {
                     path={FacebookIcon}
                     size={1}
                     color="#6E6E6E99"
-                  />
+                  />z
                 </IconButton>
               </Link>
               <Link
