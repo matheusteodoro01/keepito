@@ -21,7 +21,7 @@ import useStyles from "./styles";
 
 // components
 import Header from "../Header";
-import Sidebar from "../Sidebar";
+
 
 // pages
 import Dashboard from "../../pages/dashboard";
