@@ -8,17 +8,20 @@ module.exports = {
         'plugin:react/recommended'
     ],
     parserOptions: {
+        ecmaVersion: 6,
+        sourceType: "module",
         ecmaFeatures: {
+            modules: true,
             jsx: true
-        },
-        ecmaVersion: 'latest',
-        sourceType: 'module'
+        }
     },
     plugins: [
         'react'
     ],
     rules: {
-        "no-unused-vars": false,
+        "no-unused-vars": "off",
+        "react/prop-types": "off",
+        "react/no-unescaped-entities": "off",
         "react/jsx-uses-react": "error",
         "react/jsx-uses-vars": "error",
     }
