@@ -45,5 +45,8 @@ jobs:
       - name: Upload analysis results to GitHub
         uses: github/codeql-action/upload-sarif@v2
         with:
+          # Path to SARIF file relative to the root of the repository
           sarif_file: results.sarif
-          wait-for-processing: true
+          # Optional category for the results
+          # Used to differentiate multiple results for one commit
+          category: my-analysis-tool
