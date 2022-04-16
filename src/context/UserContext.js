@@ -116,7 +116,7 @@ async function login(dispatch, login, password, history, setIsLoading, setError,
         setTimeout(() => {
             setError(true);
             //  dispatch({ type: actions.loginFailure });
-            setIsLoading(false);
+            setIsLoading(false)
             setErrorMessage('Algo está errado com seu login ou senha :(')
             setError(true);
         }, 2000);
