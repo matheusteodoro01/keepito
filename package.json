@@ -54,6 +54,12 @@
   },
   "devDependencies": {
     "@babel/helper-call-delegate": "^7.11.4",
+    "eslint": "^7.32.0",
+    "eslint-config-standard": "^16.0.3",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^5.2.0",
+    "eslint-plugin-react": "^7.29.4",
     "git-commit-msg-linter": "^4.1.1",
     "prettier": "^2.1.1"
   }
