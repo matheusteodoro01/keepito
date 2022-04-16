@@ -1,4 +1,4 @@
-import React, { useState, useReducer, createContext } from 'react'
+import React, { useReducer, createContext } from 'react'
 
 import api from '../services/api'
 const UserStateContext = createContext()
@@ -23,9 +23,9 @@ function userReducer (state, action) {
     case action.payload:
       return { email: action.payload }
     default:
-    {
-      return { ...state, isAuthenticated: false }
-    }
+      {
+        return { ...state, isAuthenticated: false }
+      }
   }
 }
 
@@ -33,10 +33,8 @@ function UserProvider ({ children }) {
   const [state, dispatch] = useReducer(userReducer, initialState)
 
   return (< UserStateContext.Provider value={state} >
-        <
-        UserDispatchContext.Provider value={dispatch} > {children} <
-        /UserDispatchContext.Provider> < /
-        UserStateContext.Provider >
+    < UserDispatchContext.Provider value={dispatch} > {children}
+    </UserDispatchContext.Provider> </UserStateContext.Provider>
   )
 }
 
