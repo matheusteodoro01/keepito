@@ -1,4 +1,4 @@
-# Projeto de plataforma de hospedagem de cursos gratuita!
+# Projeto de plataforma de hospedagem de cursos gratuita
 
 Built with [React](https://facebook.github.io/react/), [Material-UI](https://material-ui.com), [React Router](https://reacttraining.com/react-router/).
 **No jQuery and Bootstrap!**
