@@ -44,7 +44,7 @@ export default function Menu() {
               boxShadow: "0 5px 8px 0 rgba(0, 0, 0, 0.3)",
               backgroundColor: "#fafafa",
             }}>
-              <CardActionArea component={RouterLink} to={`/course/${course.id}`}>
+              <CardActionArea component={RouterLink} to={`/app/course/${course.id}`}>
                 <CardMedia
                   component="img"
                   height="200"

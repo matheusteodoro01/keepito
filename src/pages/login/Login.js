@@ -45,7 +45,6 @@ function Login(props) {
     // Verifica se o usuario ja esta autenticado
     const token = localStorage.getItem('keepitoAuthorization');
     if (token) {
-      props.history.push('/app/menu')
       localStorage.setItem("keepitoAuthorization", token)
       api.defaults.headers['keepitoAuthorization'] = token
       userDispatch({ type: 'LOGIN_SUCCESS' });
