@@ -1,63 +1,89 @@
 import React, { useState, useEffect } from "react";
-import {
-  Grid,
-  CircularProgress,
-  Typography,
-  Button,
-  Tabs,
-  Tab,
-  TextField,
-  Fade,
-} from "@material-ui/core";
-import { withRouter } from "react-router-dom";
+import { Grid } from "@material-ui/core";
 import classnames from "classnames";
-import api from '../../services/api'
 
 // styles
+import "react-toastify/dist/ReactToastify.css";
 import useStyles from "./styles";
 
+// components
+import Widget from "../../components/Widget/Widget";
+import PageTitle from "../../components/PageTitle/PageTitle";
+import Notification from "../../components/Notification";
+import { Typography, Button } from "../../components/Wrappers/Wrappers";
+import CardMedia from '@material-ui/core/CardMedia';
+import api from '../../services/api'
 
-import google from "../../images/google.svg";
-
-// context
-import { useUserDispatch, login, singUp } from "../../context/UserContext";
-
-
-function DetailsCourse(props) {
+export default function NotificationsPage(props) {
   var classes = useStyles();
-
-  // global
-  var userDispatch = useUserDispatch();
-
-  // local
-  var [isLoading, setIsLoading] = useState(false);
-  var [error, setError] = useState(null);
-  var [errorMessage, setErrorMessage] = useState('');
-  var [activeTabId, setActiveTabId] = useState(0);
-  var [nameValue, setNameValue] = useState("");
-  var [loginValue, setLoginValue] = useState("");
-  var [passwordValue, setPasswordValue] = useState("");
-
-
+  const [course, setCourse] = useState([])
+  const [courseClasses, setCourseClasses] = useState([])
 
   useEffect(() => {
-  });
+
+    async function fetchData() {
+      await api.get(`/v1/courses/${1}`, {
+      })
+        .then((response) => {
+          console.log(response.data)
+          setCourse(response.data)
+          setCourseClasses(response.data.classes)
+        })
+
+    }
+    fetchData();
+
+  }, []);
 
   return (
-    <Grid container className={classes.container}>
-      <div className={classes.logotypeContainer}>
-     
-      </div>
-      <div className={classes.formContainer}>
-        <div className={classes.form}>
-        
-        </div>
-        <Typography color="primary" className={classes.copyright}>
-          © 2014-{new Date().getFullYear()} <a style={{ textDecoration: 'none', color: 'inherit' }} href="https://Keepito.com" rel="noopener noreferrer" target="_blank">Keepito</a>, LLC. All rights reserved.
-        </Typography>
-      </div>
-    </Grid >
+    <>
+      <Grid container spacing={4}>
+        <Grid item xs={8} >
+            <Widget disableWidgetMenu>
+              <Grid container item xs={12} spacing={4}>
+                   <Grid item xs={5}>
+                   <CardMedia
+                  component="img"
+                  height="200"
+                  image="https://escuelafullstack.com/web/image/slide.channel/18/image_512"
+                  alt="green iguana"
+                />
+                    </Grid>
+                    <Grid item xs={7}>
+                    <Widget title={course.name} noWidgetShadow disableWidgetMenu noBodyPadding noHeaderPadding style={{paddingRight: 15}} headerClass={classes.widgetHeader}>
+                      <Typography>
+                        {course.description}
+                      </Typography>
+                      <Typography>
+                        {courseClasses.length} aula(s).
+                      </Typography>
+                   
+                      
+                    </Widget>
+                    </Grid>
+                    <Grid item xs={12}>
+                      <Widget title="Conteudo"disableWidgetMenu noWidgetShadow>
+                      {courseClasses.map(course => (
+                              <Grid key={course.id} item xs={4} >
+                              <Widget title={course.name}  disableWidgetMenu noBodyPadding noHeaderPadding style={{paddingRight: 15}} headerClass={classes.widgetHeader}>
+                                <Typography>
+                                  {course.description}
+                                </Typography>
+                              </Widget>
+                              </Grid>
+                      ))}
+                        </Widget>
+                      </Grid>
+                   
+              </Grid>
+            </Widget>
+        </Grid>
+        <Grid item xs={4}>
+        <Widget disableWidgetMenu>
+      
+        </Widget>
+        </Grid>
+      </Grid>
+    </>
   );
 }
-
-export default withRouter(DetailsCourse);

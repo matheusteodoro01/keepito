@@ -1,151 +1,85 @@
 import { makeStyles } from "@material-ui/styles";
+import tinycolor from "tinycolor2";
 
 export default makeStyles(theme => ({
-  container: {
-    height: "100vh",
-    width: "100vw",
+  layoutContainer: {
+    height: 200,
     display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    position: "absolute",
-    top: 0,
-    left: 0,
-  },
-  logotypeContainer: {
-    backgroundColor: theme.palette.primary.main,
-    width: "60%",
-    height: "100%",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    [theme.breakpoints.down("md")]: {
-      width: "50%",
-    },
-    [theme.breakpoints.down("md")]: {
-      display: "none",
-    },
-  },
-  logotypeImage: {
-    width: 600,
-    marginBottom: theme.spacing(4),
-  },
-  logotypeImageLogin: {
-    width: 300,
-  },
-  logotypeText: {
-    color: "white",
-    fontWeight: 500,
-    fontSize: 84,
-    [theme.breakpoints.down("md")]: {
-      fontSize: 48,
-    },
-  },
-  formContainer: {
-    width: "40%",
-    height: "100%",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    [theme.breakpoints.down("md")]: {
-      width: "50%",
-    },
-  },
-  form: {
-    width: 320,
-  },
-  tab: {
-    fontWeight: 400,
-    fontSize: 18,
-  },
-  greeting: {
-    fontWeight: 500,
-    textAlign: "center",
-    marginTop: theme.spacing(4),
-  },
-  subGreeting: {
-    fontWeight: 500,
-    textAlign: "center",
-    marginTop: theme.spacing(2),
-  },
-  googleButton: {
-    marginTop: theme.spacing(6),
-    boxShadow: theme.customShadows.widget,
-    backgroundColor: "white",
-    width: "100%",
-    textTransform: "none",
-  },
-  googleButtonCreating: {
-    marginTop: 0,
-  },
-  googleIcon: {
-    width: 30,
-    marginRight: theme.spacing(2),
-  },
-  creatingButtonContainer: {
-    marginTop: theme.spacing(2.5),
-    height: 46,
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  createAccountButton: {
-    height: 46,
-    textTransform: "none",
-  },
-  formDividerContainer: {
-    marginTop: theme.spacing(4),
-    marginBottom: theme.spacing(4),
-    display: "flex",
-    alignItems: "center",
-  },
-  formDividerWord: {
-    paddingLeft: theme.spacing(2),
-    paddingRight: theme.spacing(2),
-  },
-  formDivider: {
-    flexGrow: 1,
-    height: 1,
-    backgroundColor: theme.palette.text.hint + "40",
-  },
-  errorMessage: {
-    textAlign: "center",
-  },
-  textFieldUnderline: {
-    "&:before": {
-      borderBottomColor: theme.palette.primary.light,
-    },
-    "&:after": {
-      borderBottomColor: theme.palette.primary.main,
-    },
-    "&:hover:before": {
-      borderBottomColor: `${theme.palette.primary.light} !important`,
-    },
-  },
-  textField: {
-    borderBottomColor: theme.palette.background.light,
-  },
-  formButtons: {
-    width: "100%",
-    marginTop: theme.spacing(4),
-    display: "flex",
+         flexDirection: "column",
     justifyContent: "space-between",
     alignItems: "center",
+    marginTop: theme.spacing(2),
+    border: "1px dashed",
+    borderColor: theme.palette.primary.main,
+    position: "relative",
   },
-  forgetButton: {
+  layoutText: {
+    color: tinycolor(theme.palette.background.light)
+      .darken()
+      .toHexString(),
+  },
+  layoutButtonsRow: {
+    width: "100%",
+    display: "flex",
+    justifyContent: "space-between",
+  },
+  layoutButton: {
+    backgroundColor: theme.palette.background.light,
+    width: 125,
+    height: 50,
+    outline: "none",
+    border: "none",
+  },
+  layoutButtonActive: {
+    backgroundColor: tinycolor(theme.palette.background.light)
+      .darken()
+      .toHexString(),
+  },
+  buttonsContainer: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "flex-start",
+    marginTop: theme.spacing(2),
+  },
+  notificationCallButton: {
+    color: "white",
+    marginBottom: theme.spacing(1),
     textTransform: "none",
-    fontWeight: 400,
   },
-  loginLoader: {
-    marginLeft: theme.spacing(4),
+  codeContainer: {
+    display: "flex",
+    flexDirection: "column",
+    marginTop: theme.spacing(2),
   },
-  copyright: {
-    marginTop: theme.spacing(4),
-    whiteSpace: "nowrap",
-    [theme.breakpoints.up("md")]: {
-      position: "absolute",
-      bottom: theme.spacing(2),
-    },
+  codeComponent: {
+    flexGrow: 1,
   },
+  notificationItem: {
+    marginTop: theme.spacing(2),
+  },
+  notificationCloseButton: {
+    position: "absolute",
+    right: theme.spacing(2),
+  },
+  toastsContainer: {
+    width: 400,
+    marginTop: theme.spacing(6),
+    right: 0,
+  },
+  progress: {
+    visibility: "hidden",
+  },
+  notification: {
+    display: "flex",
+    alignItems: "center",
+    background: "transparent",
+    boxShadow: "none",
+    overflow: "visible",
+  },
+  notificationComponent: {
+    paddingRight: theme.spacing(4),
+  },
+  widgetHeader: {
+    paddingBottom: 8
+  }
 }));
