@@ -28,7 +28,7 @@ import Icons from "../../pages/icons";
 import Charts from "../../pages/charts";
 import Menu from "../../pages/menu/Menu"
 import DetailsCourse from "../../pages/details/DetailsCourse"
-
+import Course from "../../pages/course/Course"
 // context
 import { useLayoutState } from "../../context/LayoutContext";
 
@@ -51,6 +51,7 @@ function Layout(props) {
           <Switch>
             <Route path="/app/menu" component={Menu} />
             <Route path="/app/course" component={DetailsCourse} />
+            <Route path="/app/subscribe/course/" component={Course} />
             <Route
               exact
               path="/app/ui"
