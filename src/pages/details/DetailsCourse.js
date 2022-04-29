@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Grid,CardContent,CardActions, IconButton} from "@material-ui/core";
+import { Link } from 'react-router-dom';
 import classnames from "classnames";
 import Card from '@material-ui/core/Card';
 import FavoriteIcon from '@material-ui/icons/Favorite';
@@ -14,7 +15,7 @@ import { Typography, Button } from "../../components/Wrappers/Wrappers";
 import CardMedia from '@material-ui/core/CardMedia';
 import api from '../../services/api'
 
-export default function NotificationsPage (props) {
+export default function DetailsCourse (props) {
   var classes = useStyles();
   const [course, setCourse] = useState([])
   const [courseClasses, setCourseClasses] = useState([])
@@ -75,6 +76,7 @@ Tudo o que há de mais recente nessa tecnologia você encontra em nosso curso qu
                   color="primary"
                   size="large"
                   className={classes.buttonsContainer}
+                  component={Link} to={`/app/subscribe/course/${course.id}`}
                 >
                 Inscrever-se
                 </Button>

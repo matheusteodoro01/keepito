@@ -1,6 +1,6 @@
 {
     "name": "DetailsCourse",
-    "version": "0.0.0",
+    "version": "0.0.2",
     "main": "DetailsCourse.js",
     "private": true
 }
