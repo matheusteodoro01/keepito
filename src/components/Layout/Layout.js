@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   Route,
   Switch,
@@ -31,17 +31,26 @@ import DetailsCourse from "../../pages/details/DetailsCourse"
 import Course from "../../pages/course/Course"
 // context
 import { useLayoutState } from "../../context/LayoutContext";
+import { decoder } from "../../services/decoder";
 
 function Layout(props) {
   var classes = useStyles();
+  const token = localStorage.getItem('keepitoAuthorization');
 
   // global
   var layoutState = useLayoutState();
+  const [userName, setUserName] = useState('')
+  useEffect(() => {
+   
+    const {name}=decoder(token)
+    setUserName(name)
+    console.log(name)
 
+  }, [token]);
   return (
     <div className={classes.root}>
       <>
-        <Header history={props.history} />
+        <Header history={props.history} userName={userName}/>
         <div
           className={classnames(classes.content, {
             [classes.contentShift]: layoutState.isSidebarOpened,
