@@ -263,14 +263,6 @@ export default function Header(props) {
             <Typography variant="h4" weight="medium">
               {props.userName}
             </Typography>
-            <Typography
-              className={classes.profileMenuLink}
-              component="a"
-              color="primary"
-              href="https://flatlogic.com"
-            >
-              Flalogic.com
-            </Typography>
           </div>
           <MenuItem
             className={classNames(
@@ -278,7 +270,7 @@ export default function Header(props) {
               classes.headerMenuItem,
             )}
           >
-            <AccountIcon className={classes.profileMenuIcon} /> Profile
+            <AccountIcon className={classes.profileMenuIcon} /> Minha Conta
           </MenuItem>
           <MenuItem
             className={classNames(
@@ -286,16 +278,9 @@ export default function Header(props) {
               classes.headerMenuItem,
             )}
           >
-            <AccountIcon className={classes.profileMenuIcon} /> Tasks
+            <AccountIcon className={classes.profileMenuIcon} /> Meus Cursos
           </MenuItem>
-          <MenuItem
-            className={classNames(
-              classes.profileMenuItem,
-              classes.headerMenuItem,
-            )}
-          >
-            <AccountIcon className={classes.profileMenuIcon} /> Messages
-          </MenuItem>
+          
           <div className={classes.profileMenuUser}>
             <Typography
               className={classes.profileMenuLink}
