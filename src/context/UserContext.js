@@ -1,6 +1,7 @@
 import React, { useReducer, createContext } from 'react'
 
 import api from '../services/api'
+import {decoder} from '../services/decoder'
 const UserStateContext = createContext()
 const UserDispatchContext = createContext()
 
@@ -94,9 +95,10 @@ async function login (dispatch, login, password, history, setIsLoading, setError
 
   await api.post('/login', data)
     .then(response => {
+    
       setTimeout(() => {
         localStorage.setItem('keepitoAuthorization', response.headers.authorization)
-        api.defaults.headers.keepitoAuthorization = `${response.headers.authorization}`
+        api.defaults.headers.authorization = `${response.headers.authorization}`
         setIsLoading(false)
         dispatch({ type: actions.loginSucces })
         history.push('/app/menu')
