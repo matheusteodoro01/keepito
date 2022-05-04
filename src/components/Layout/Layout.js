@@ -59,7 +59,7 @@ function Layout(props) {
           <div className={classes.fakeToolbar} />
           <Switch>
             <Route path="/app/menu" component={Menu} />
-            <Route path="/app/course" component={DetailsCourse} />
+            <Route path="/app/course/:id" component={DetailsCourse} />
             <Route path="/app/subscribe/course/" component={Course} />
             <Route
               exact
