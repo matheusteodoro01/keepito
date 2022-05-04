@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Grid,CardContent,CardActions, IconButton} from "@material-ui/core";
-import { Link } from 'react-router-dom';
+import { Link,  useParams } from 'react-router-dom';
 import classnames from "classnames";
 import Card from '@material-ui/core/Card';
 import FavoriteIcon from '@material-ui/icons/Favorite';
@@ -19,14 +19,13 @@ export default function DetailsCourse (props) {
   var classes = useStyles();
   const [course, setCourse] = useState([])
   const [courseClasses, setCourseClasses] = useState([])
-
+  let { id } = useParams()
   useEffect(() => {
-
     async function fetchData () {
-      await api.get(`/v1/courses/${1}`, {
+      await api.get(`/v1/courses/${id}`, {
       })
         .then((response) => {
-          console.log(response.data)
+    
           setCourse(response.data)
           setCourseClasses(response.data.classes)
         })
