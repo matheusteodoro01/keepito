@@ -1,20 +1,15 @@
 import React, { useState, useEffect } from "react";
-import {
-  Route,
-  Switch,
-  Redirect,
-  withRouter,
-} from "react-router-dom";
+import { Route, Switch, Redirect, withRouter } from "react-router-dom";
 import classnames from "classnames";
-import { Box, IconButton, Link } from '@material-ui/core'
-import Icon from '@mdi/react'
+import { Box, IconButton, Link } from "@material-ui/core";
+import Icon from "@mdi/react";
 
 //icons
 import {
   mdiFacebook as FacebookIcon,
   mdiTwitter as TwitterIcon,
   mdiGithub as GithubIcon,
-} from '@mdi/js'
+} from "@mdi/js";
 
 // styles
 import useStyles from "./styles";
@@ -22,35 +17,31 @@ import useStyles from "./styles";
 // components
 import Header from "../Header";
 
-
 // pages
 import Icons from "../../pages/icons";
 import Charts from "../../pages/charts";
-import Menu from "../../pages/menu/Menu"
-import DetailsCourse from "../../pages/details/DetailsCourse"
-import Course from "../../pages/course/Course"
+import Menu from "../../pages/menu/Menu";
+import DetailsCourse from "../../pages/details/DetailsCourse";
+import Course from "../../pages/course/Course";
 // context
 import { useLayoutState } from "../../context/LayoutContext";
 import { decoder } from "../../services/decoder";
 
 function Layout(props) {
   var classes = useStyles();
-  const token = localStorage.getItem('keepitoAuthorization');
+  const token = localStorage.getItem("keepitoAuthorization");
 
   // global
   var layoutState = useLayoutState();
-  const [userName, setUserName] = useState('')
+  const [userName, setUserName] = useState("");
   useEffect(() => {
-   
-    const {name}=decoder(token)
-    setUserName(name)
-    console.log(name)
-
+    const { name } = decoder(token);
+    setUserName(name);
   }, [token]);
   return (
     <div className={classes.root}>
       <>
-        <Header history={props.history} userName={userName}/>
+        <Header history={props.history} userName={userName} />
         <div
           className={classnames(classes.content, {
             [classes.contentShift]: layoutState.isSidebarOpened,
@@ -59,8 +50,8 @@ function Layout(props) {
           <div className={classes.fakeToolbar} />
           <Switch>
             <Route path="/app/menu" component={Menu} />
-            <Route path="/app/course/:id" component={DetailsCourse} />
-            <Route path="/app/subscribe/course/" component={Course} />
+            <Route path="/app/course/:course_id" component={DetailsCourse} />
+            <Route path="/app/subscribe/course/:course_id" component={Course} />
             <Route
               exact
               path="/app/ui"
@@ -78,25 +69,25 @@ function Layout(props) {
           >
             <div>
               <Link
-                color={'primary'}
-                href={'https://keepito-closer.vercel.app'}
-                target={'_blank'}
+                color={"primary"}
+                href={"https://keepito-closer.vercel.app"}
+                target={"_blank"}
                 className={classes.link}
               >
                 Criar Curso
               </Link>
               <Link
-                color={'primary'}
-                href={'https://flatlogic.com/about'}
-                target={'_blank'}
+                color={"primary"}
+                href={"https://flatlogic.com/about"}
+                target={"_blank"}
                 className={classes.link}
               >
                 Sobre nós
               </Link>
               <Link
-                color={'primary'}
-                href={'https://flatlogic.com/blog'}
-                target={'_blank'}
+                color={"primary"}
+                href={"https://flatlogic.com/blog"}
+                target={"_blank"}
                 className={classes.link}
               >
                 Contato
@@ -104,42 +95,21 @@ function Layout(props) {
             </div>
             <div>
               <Link
-                href={'https://www.facebook.com/flatlogic'}
-                target={'_blank'}
+                href={"https://www.facebook.com/flatlogic"}
+                target={"_blank"}
               >
                 <IconButton aria-label="facebook">
-                  <Icon
-                    path={FacebookIcon}
-                    size={1}
-                    color="#6E6E6E99"
-                  />
+                  <Icon path={FacebookIcon} size={1} color="#6E6E6E99" />
                 </IconButton>
               </Link>
-              <Link
-                href={'https://twitter.com/flatlogic'}
-                target={'_blank'}
-              >
+              <Link href={"https://twitter.com/flatlogic"} target={"_blank"}>
                 <IconButton aria-label="twitter">
-                  <Icon
-                    path={TwitterIcon}
-                    size={1}
-                    color="#6E6E6E99"
-                  />
+                  <Icon path={TwitterIcon} size={1} color="#6E6E6E99" />
                 </IconButton>
               </Link>
-              <Link
-                href={'https://github.com/flatlogic'}
-                target={'_blank'}
-              >
-                <IconButton
-                  aria-label="github"
-                  style={{ marginRight: -12 }}
-                >
-                  <Icon
-                    path={GithubIcon}
-                    size={1}
-                    color="#6E6E6E99"
-                  />
+              <Link href={"https://github.com/flatlogic"} target={"_blank"}>
+                <IconButton aria-label="github" style={{ marginRight: -12 }}>
+                  <Icon path={GithubIcon} size={1} color="#6E6E6E99" />
                 </IconButton>
               </Link>
             </div>
