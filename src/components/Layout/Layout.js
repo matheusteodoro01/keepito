@@ -37,7 +37,6 @@ function Layout(props) {
   useEffect(() => {
     const { name } = decoder(token);
     setUserName(name);
-    console.log(name);
   }, [token]);
   return (
     <div className={classes.root}>
