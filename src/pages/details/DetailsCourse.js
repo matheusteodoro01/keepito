@@ -104,30 +104,32 @@ export default function DetailsCourse(props) {
             </CardActions>
           </CardContent>
         </Grid>
-        <Grid item>
-          <CardContent>
-            <Typography gutterBottom variant="h2" component="div">
-              Conteudo
-            </Typography>
-            {courseClasses.map((course) => (
-              <Card key={course.id}>
-                <CardContent>
-                  <Typography variant="h4" component="p">
-                    {course.name}
-                  </Typography>
-                  <Typography>
-                    {course.description} Neste curso o aluno irá aprender as
-                    partes básicas como: Configuração do Ambiente; Algoritmo e
-                    Estrutura de Dados; Fundamentos da Linguagem Java;
-                    Estruturas de Controle; Classes, Objetos e Métodos. Dessa
-                    forma, o aluno estará preparado para conceitos mais
-                    avançados, como a Orientação a Objetos, por exemplo.
-                  </Typography>
-                </CardContent>
-              </Card>
-            ))}
-          </CardContent>
+      </Grid>
+      <Grid container spacing={1}>
+        <Grid item sm={10} md={8}>
+          <Typography gutterBottom variant="h2" component="div">
+            Conteudo
+          </Typography>
         </Grid>
+        {courseClasses.map((course) => (
+          <Grid item key={course.id}>
+            <Card>
+              <CardContent>
+                <Typography variant="h4" component="p">
+                  {course.name}
+                </Typography>
+                <Typography>
+                  {course.description} Neste curso o aluno irá aprender as
+                  partes básicas como: Configuração do Ambiente; Algoritmo e
+                  Estrutura de Dados; Fundamentos da Linguagem Java; Estruturas
+                  de Controle; Classes, Objetos e Métodos. Dessa forma, o aluno
+                  estará preparado para conceitos mais avançados, como a
+                  Orientação a Objetos, por exemplo.
+                </Typography>
+              </CardContent>
+            </Card>
+          </Grid>
+        ))}
       </Grid>
     </>
   );
