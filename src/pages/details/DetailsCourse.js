@@ -20,24 +20,24 @@ export default function DetailsCourse(props) {
   var classes = useStyles();
   const token = localStorage.getItem("keepitoAuthorization");
   const [course, setCourse] = useState([]);
-  const [subscribe, setSubscribe] = useState("");
+  const [subscribe, setSubscribe] = useState(false);
   const [courseClasses, setCourseClasses] = useState([]);
   const { id } = decoder(token);
   let { course_id } = useParams();
 
-  useEffect(async () => {
-    async function fetchData() {
-      await api.get(`/v1/courses/${course_id}`).then((response) => {
-        setCourse(response.data);
-        setCourseClasses(response.data.classes);
-      });
-    }
-    await fetchData();
+  function fetchData() {
+    api.get(`/v1/courses/${course_id}`).then((response) => {
+      setCourse(response.data);
+      setCourseClasses(response.data.classes);
+    });
+  }
+  useEffect(() => {
+    fetchData();
   }, []);
 
-  async function handleSubscribe({ courseId, userId }) {
+  function handleSubscribe({ courseId, userId }) {
     console.log(courseId, userId);
-    await api
+    api
       .post(`/v1/registers?userId=${userId}&courseId=${courseId}`)
       .then((response) => {
         setSubscribe(true);
@@ -113,7 +113,7 @@ export default function DetailsCourse(props) {
               <Card key={course.id}>
                 <CardContent>
                   <Typography variant="h4" component="p">
-                    {course.id} - {course.name}
+                    {course.name}
                   </Typography>
                   <Typography>
                     {course.description} Neste curso o aluno irá aprender as
