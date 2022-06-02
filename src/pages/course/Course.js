@@ -21,14 +21,22 @@ export default function Course(props) {
   const [courseClasses, setCourseClasses] = useState([]);
   let { course_id } = useParams();
 
-  function fetchData() {
-    api.get(`/v1/courses/${course_id}`, {}).then((response) => {
-      setCourse(response.data);
-      setCourseClasses(response.data.classes);
+  async function getFiles(classId) {
+    const response = await api.get(`/v1/classes/files?classId=${classId}`, {});
+    return response.data;
+  }
+  async function getClasses() {
+    const response = await api.get(`/v1/courses/${course_id}`, {});
+    const promise = await response.data.classes.map(async (classCourse) => {
+      const files = await getFiles(classCourse.id);
+      return { ...classCourse, files: files };
     });
+    const classes = await Promise.all(promise);
+    setCourse(response.data);
+    setCourseClasses(classes);
   }
   useEffect(() => {
-    fetchData();
+    getClasses();
   }, []);
 
   return (
@@ -62,7 +70,11 @@ export default function Course(props) {
                   de Controle; Classes, Objetos e Métodos. Dessa forma, o aluno
                   estará preparado para conceitos mais avançados, como a
                   Orientação a Objetos, por exemplo.
+                  
                 </Typography>
+                {course.files.map((file) => (
+                  <Typography key={file}>{file}</Typography>
+                ))}
               </CardContent>
             </Card>
           </Grid>
