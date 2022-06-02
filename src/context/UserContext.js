@@ -93,27 +93,25 @@ async function login (dispatch, login, password, history, setIsLoading, setError
     password: password
   }
 
-  await api.post('/login', data)
-    .then(response => {
-    
-      setTimeout(() => {
-        localStorage.setItem('keepitoAuthorization', response.headers.authorization)
-        api.defaults.headers.authorization = `${response.headers.authorization}`
-        setIsLoading(false)
-        dispatch({ type: actions.loginSucces })
-        history.push('/app/menu')
-      }, 2000)
-    })
+  try {
+    const response = await api.post('/login', data)
+    const {headers} = response
+      localStorage.setItem('keepitoAuthorization', headers.authorization)
+      setIsLoading(false)
+      dispatch({ type: actions.loginSucces })
+      history.push('/app/menu')
+  } catch (error) {
+      setError(true)
+      //  dispatch({ type: actions.loginFailure });
+      setIsLoading(false)
+      setErrorMessage('Algo está errado com seu login ou senha :(')
+      setError(true)
+  }
 
-    .catch(error => {
-      setTimeout(() => {
-        setError(true)
-        //  dispatch({ type: actions.loginFailure });
-        setIsLoading(false)
-        setErrorMessage('Algo está errado com seu login ou senha :(')
-        setError(true)
-      }, 2000)
-    })
+
+  
+     
+    
 }
 
 function signOut (dispatch, history) {
