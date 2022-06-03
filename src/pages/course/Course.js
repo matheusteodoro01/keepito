@@ -1,18 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { Grid, CardContent, CardActions, IconButton } from "@material-ui/core";
+import { Grid, CardContent } from "@material-ui/core";
 import { Link, useParams } from "react-router-dom";
 import classnames from "classnames";
 import Card from "@material-ui/core/Card";
-import FavoriteIcon from "@material-ui/icons/Favorite";
-import ShareIcon from "@material-ui/icons/Share";
+import { InsertDriveFile } from "@material-ui/icons";
 // styles
 import "react-toastify/dist/ReactToastify.css";
 import useStyles from "./styles";
-
 // components
 
-import { Typography, Button } from "../../components/Wrappers/Wrappers";
-import CardMedia from "@material-ui/core/CardMedia";
+import { Typography } from "../../components/Wrappers/Wrappers";
 import api from "../../services/api";
 
 export default function Course(props) {
@@ -56,24 +53,31 @@ export default function Course(props) {
             Conteudo
           </Typography>
         </Grid>
-        {courseClasses.map((course) => (
-          <Grid item key={course.id}>
+        {courseClasses.map((classeCourse) => (
+          <Grid item key={classeCourse.id}>
             <Card>
               <CardContent>
                 <Typography variant="h4" component="p">
-                  {course.name}
+                  {classeCourse.name}
                 </Typography>
                 <Typography>
-                  {course.description} Neste curso o aluno irá aprender as
+                  {classeCourse.description} Neste curso o aluno irá aprender as
                   partes básicas como: Configuração do Ambiente; Algoritmo e
                   Estrutura de Dados; Fundamentos da Linguagem Java; Estruturas
                   de Controle; Classes, Objetos e Métodos. Dessa forma, o aluno
                   estará preparado para conceitos mais avançados, como a
                   Orientação a Objetos, por exemplo.
-                  
                 </Typography>
-                {course.files.map((file) => (
-                  <Typography key={file}>{file}</Typography>
+                {classeCourse.files.map((file) => (
+                  <Typography key={file}>
+                    <InsertDriveFile
+                      key={file}
+                      href={`${{ file }}`}
+                      classes={{ root: classes.headerIcon }}
+
+                    />
+                   <a href={`https://jornada-back.s3.amazonaws.com/classes/classId-${classeCourse.id}/${file}`} target="blank">{file}</a> 
+                  </Typography>
                 ))}
               </CardContent>
             </Card>
