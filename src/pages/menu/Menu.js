@@ -19,6 +19,7 @@ export default function Menu() {
 
   function fetchData() {
     api.get("/v1/courses", {}).then((response) => {
+      console.log(response.data.content)
       setCourses(response.data.content);
     });
   }
@@ -29,8 +30,9 @@ export default function Menu() {
   return (
     <>
       <Grid container spacing={2}>
-        {courses.map((course) => (
-          <Grid item key={course.id}>
+        {courses.map((course) => {
+          if(course.classes.length > 0) {
+            return <Grid item key={course.id}>
             <Card
               style={{
                 fontSize: 3,
@@ -57,8 +59,10 @@ export default function Menu() {
                 </CardContent>
               </CardActionArea>
             </Card>
-          </Grid>
-        ))}
+          </Grid>;
+          }
+          
+        })}
       </Grid>
     </>
   );
