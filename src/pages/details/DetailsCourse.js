@@ -20,19 +20,37 @@ export default function DetailsCourse(props) {
   var classes = useStyles();
   const token = localStorage.getItem("keepitoAuthorization");
   const [course, setCourse] = useState([]);
-  const [subscribe, setSubscribe] = useState(false);
+  const [subscribe, setSubscribe] = useState(true);
   const [courseClasses, setCourseClasses] = useState([]);
   const { id } = decoder(token);
   let { course_id } = useParams();
 
-  function fetchData() {
-    api.get(`/v1/courses/${course_id}`).then((response) => {
+  function isSubscribe(course) {
+    if (course.id == id) return true; 
+    return false;
+  }
+
+  async function getCourse() {
+    try {
+      const response = await api.get(`/v1/courses/${course_id}`);
       setCourse(response.data);
       setCourseClasses(response.data.classes);
-    });
+    } catch (error) {
+      setCourse([]);
+      setCourseClasses([]);
+    }
   }
-  useEffect(() => {
-    fetchData();
+  async function getSubscribe() {
+    try {
+      const response = await api.get(`/v1/users/${id}`);
+     response.data?.courses.filter(isSubscribe).length == 0 && setSubscribe(true)
+    } catch (error) {
+      setSubscribe(false)
+    }
+  }
+  useEffect( () => {
+     getCourse();
+     getSubscribe();
   }, []);
 
   function handleSubscribe({ courseId, userId }) {
@@ -79,10 +97,11 @@ export default function DetailsCourse(props) {
               tecnologia você encontra em nosso curso que é totalmente focado em
               projetos práticos para você desenvolver aplicações poderosas com o
               Java no Back-end.
+              {subscribe}
             </Typography>
 
             <CardActions disableSpacing>
-              <Button
+               <Button
                 variant="contained"
                 color="primary"
                 size="large"
@@ -93,7 +112,7 @@ export default function DetailsCourse(props) {
                 }
                 to={`/app/subscribe/course/${course.id}`}
               >
-                Inscrever-se
+              {!subscribe ? 'Inscrever-se': 'Acessar'}
               </Button>
               <IconButton aria-label="add to favorites">
                 <FavoriteIcon />
