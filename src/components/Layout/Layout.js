@@ -22,6 +22,7 @@ import Icons from "../../pages/icons";
 import Charts from "../../pages/charts";
 import Menu from "../../pages/menu/Menu";
 import DetailsCourse from "../../pages/details/DetailsCourse";
+import ClasseDetails from "../../pages/classe"
 import Course from "../../pages/course/Course";
 // context
 import { useLayoutState } from "../../context/LayoutContext";
@@ -50,8 +51,9 @@ function Layout(props) {
           <div className={classes.fakeToolbar} />
           <Switch>
             <Route path="/app/menu" component={Menu} />
-            <Route path="/app/course/:course_id" component={DetailsCourse} />
+            <Route path="/app/course/details/:course_id" component={DetailsCourse} />
             <Route path="/app/subscribe/course/:course_id" component={Course} />
+            <Route path="/app/course/:courseId/classe/details/:classeId" component={ClasseDetails} />
             <Route
               exact
               path="/app/ui"
