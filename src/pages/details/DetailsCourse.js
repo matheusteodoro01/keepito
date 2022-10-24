@@ -25,12 +25,12 @@ export default function DetailsCourse(props) {
   const { id } = decoder(token);
   let { course_id } = useParams();
 
-  function isSubscribe(course) {
-    if (course.id == id) return true; 
+  const isSubscribe = (course) => {
+    if (course.id == id) return true;
     return false;
-  }
+  };
 
-  async function getCourse() {
+  const getCourse = async () => {
     try {
       const response = await api.get(`/v1/courses/${course_id}`);
       setCourse(response.data);
@@ -39,18 +39,19 @@ export default function DetailsCourse(props) {
       setCourse([]);
       setCourseClasses([]);
     }
-  }
+  };
   async function getSubscribe() {
     try {
       const response = await api.get(`/v1/users/${id}`);
-     response.data?.courses.filter(isSubscribe).length == 0 && setSubscribe(true)
+      response.data?.courses.filter(isSubscribe).length == 0 &&
+        setSubscribe(true);
     } catch (error) {
-      setSubscribe(false)
+      setSubscribe(false);
     }
   }
-  useEffect( () => {
-     getCourse();
-     getSubscribe();
+  useEffect(() => {
+    getCourse();
+    getSubscribe();
   }, []);
 
   function handleSubscribe({ courseId, userId }) {
@@ -91,17 +92,14 @@ export default function DetailsCourse(props) {
               {courseClasses.length} aula(s)
             </Typography>
             <Typography variant="body1" color="text.secondary">
-              {course.description} Um curso totalmente focado em Java para Web!
-              Com ele você aprenderá a desenvolver seus próprios websites e
-              sistemas com essa linguagem! Tudo o que há de mais recente nessa
-              tecnologia você encontra em nosso curso que é totalmente focado em
-              projetos práticos para você desenvolver aplicações poderosas com o
-              Java no Back-end.
-              {subscribe}
+              {course.description}
+            </Typography>
+            <Typography variant="body1" color="text.secondary">
+              {subscribe && "Você ja está inscrito nesse curso!"}
             </Typography>
 
-            <CardActions disableSpacing>
-               <Button
+            <CardActions>
+              <Button
                 variant="contained"
                 color="primary"
                 size="large"
@@ -112,7 +110,7 @@ export default function DetailsCourse(props) {
                 }
                 to={`/app/subscribe/course/${course.id}`}
               >
-              {!subscribe ? 'Inscrever-se': 'Acessar'}
+                {!subscribe ? "Inscrever-se" : "Acessar"}
               </Button>
               <IconButton aria-label="add to favorites">
                 <FavoriteIcon />
@@ -131,20 +129,13 @@ export default function DetailsCourse(props) {
           </Typography>
         </Grid>
         {courseClasses.map((course) => (
-          <Grid item key={course.id}>
+          <Grid item sm={12} md={12} lg={12} key={course.id}>
             <Card>
               <CardContent>
                 <Typography variant="h4" component="p">
                   {course.name}
                 </Typography>
-                <Typography>
-                  {course.description} Neste curso o aluno irá aprender as
-                  partes básicas como: Configuração do Ambiente; Algoritmo e
-                  Estrutura de Dados; Fundamentos da Linguagem Java; Estruturas
-                  de Controle; Classes, Objetos e Métodos. Dessa forma, o aluno
-                  estará preparado para conceitos mais avançados, como a
-                  Orientação a Objetos, por exemplo.
-                </Typography>
+                <Typography>{course.description}</Typography>
               </CardContent>
             </Card>
           </Grid>
