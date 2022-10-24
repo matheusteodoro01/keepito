@@ -30,26 +30,28 @@ export default function Menu() {
   return (
     <>
       <Grid container spacing={2}>
-        {courses.map((course) => {
+        {courses.map((course,index) => {
           if(course.classes.length > 0) {
             return <Grid item key={course.id}>
             <Card
               style={{
                 fontSize: 3,
-                maxWidth: 345,
-                maxHeight: 345,
+                width: 320,
+                height: 250,
                 boxShadow: "0 5px 8px 0 rgba(0, 0, 0, 0.3)",
                 backgroundColor: "#fafafa",
               }}
             >
               <CardActionArea
                 component={RouterLink}
-                to={`/app/course/${course.id}`}
+                to={`/app/course/details/${course.id}`}
               >
                 <CardMedia
                   component="img"
-                  height="200"
-                  image="https://escuelafullstack.com/web/image/slide.channel/18/image_512"
+          
+                  height="150"
+              
+                  image={`https://escuelafullstack.com/web/image/slide.channel/${index+2}/image_512`}
                   alt="green iguana"
                 />
                 <CardContent>
