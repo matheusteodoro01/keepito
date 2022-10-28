@@ -20,15 +20,12 @@ export default function DetailsCourse(props) {
   var classes = useStyles();
   const token = localStorage.getItem("keepitoAuthorization");
   const [course, setCourse] = useState([]);
-  const [subscribe, setSubscribe] = useState(true);
+  const [subscribe, setSubscribe] = useState(false);
   const [courseClasses, setCourseClasses] = useState([]);
   const { id } = decoder(token);
   let { course_id } = useParams();
 
-  const isSubscribe = (course) => {
-    if (course.id == id) return true;
-    return false;
-  };
+  const isSubscribe = (course) => course.id == course_id;
 
   const getCourse = async () => {
     try {
@@ -43,7 +40,7 @@ export default function DetailsCourse(props) {
   async function getSubscribe() {
     try {
       const response = await api.get(`/v1/users/${id}`);
-      response.data?.courses.filter(isSubscribe).length == 0 &&
+      response.data?.courses?.filter(isSubscribe).length > 0 &&
         setSubscribe(true);
     } catch (error) {
       setSubscribe(false);
