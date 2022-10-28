@@ -100,7 +100,7 @@ export default function ClasseDetails() {
                   color="primary"
                   size="small"
                   component={Link}
-                  to={`/app/course/classe/quiz/details/${quiz.id}`}
+                  to={`/app/course/quiz/${quiz.id}`}
                 >
                   Acessar Quiz
                 </Button>
