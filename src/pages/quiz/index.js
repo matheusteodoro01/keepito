@@ -15,26 +15,17 @@ export default function Quiz() {
   const token = localStorage.getItem("keepitoAuthorization");
   const [activeStep, setActiveStep] = useState(0);
   const [quizQuestions, setQuizQuestions] = useState([]);
+  const [quizScore, setQuizScore] = useState([]);
   const [booleanonsubmit, setBooleanonsubmit] = useState(false);
   const [total, setTotal] = useState(0);
   const [open, setOpen] = useState(false);
   const [catchmsg, setCatchmsg] = useState("");
   const [errormsg, setErrormsg] = useState("");
-  const [questionIdCurrent, setQuestionIdCurrent] = useState(0);
-  const [correctAlternativeId, setCorrectAlternativeId] = useState(0);
+  const [quizResponses, setQuizResponses] = useState(new Map());
   const { quizId } = useParams();
   const { id } = decoder(token);
 
-  const handleNext = async () => {
-    try {
-      await sendResponseQuestion();
-      setActiveStep(activeStep + 1);
-    } catch (error) {
-      setCatchmsg("Erro ao gravar resposta!");
-      setErrormsg("error");
-      setOpen(true);
-    }
-  };
+  const handleNext = () => setActiveStep(activeStep + 1);
   const handleBack = () => setActiveStep(activeStep - 1);
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
@@ -47,16 +38,20 @@ export default function Quiz() {
     try {
       const quiz = await api.get(`/v1/quizzes/${quizId}`);
       setQuizQuestions(quiz.data.questions);
+      setQuizScore(quiz.data.score);
     } catch (error) {
       setQuizQuestions({});
     }
   };
 
-  const sendResponseQuestion = async () => {
+  const sendResponsesQuestions = async ({
+    questionId,
+    correctAlternativeId,
+  }) => {
     const responseQuestion = {
       userId: id,
-      questionId: questionIdCurrent,
-      correctAlternativeId: correctAlternativeId,
+      questionId,
+      correctAlternativeId,
     };
     return await api.post("/v1/alternativesResponse", responseQuestion);
   };
@@ -81,12 +76,23 @@ export default function Quiz() {
         }),
       };
     });
-    setQuestionIdCurrent(questionId);
-    setCorrectAlternativeId(correctAlternativeId);
+    quizResponses.set(questionId, { questionId, correctAlternativeId });
     setQuizQuestions(nexState);
   };
 
-  onsubmit = () => {
+  onsubmit = async () => {
+    const reponses = [];
+    quizResponses.forEach(async (value, key) => reponses.push(value));
+    await Promise.all(
+      reponses.map(
+        async (response) =>
+          await sendResponsesQuestions({
+            questionId: response.questionId,
+            correctAlternativeId: response.correctAlternativeId,
+          }),
+      ),
+    );
+
     let count = 0;
     let notattempcount = 0;
 
@@ -137,10 +143,7 @@ export default function Quiz() {
     <div className="Quiz_render_container">
       {booleanonsubmit ? (
         <div className="Quiz-DisplayResult">
-          <h2>
-            {" "}
-            Voce acertou {total} de {quizQuestions.length} questões!{" "}
-          </h2>
+          <h2> Sua nota foi {(quizScore / quizQuestions.length) * total}! </h2>
           <Button
             onClick={() => {
               setBooleanonsubmit(false);
