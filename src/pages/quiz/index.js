@@ -1,5 +1,14 @@
 import React, { useState, useEffect } from "react";
 import MobileStepper from "@material-ui/core/MobileStepper";
+import Radio from "@material-ui/core/Radio";
+import RadioGroup from "@material-ui/core/RadioGroup";
+import {
+  Grid,
+  FormControl,
+  Typography,
+  FormLabel,
+  FormControlLabel,
+} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import Replay from "@material-ui/icons/Replay";
 import Snackbar from "@material-ui/core/Snackbar";
@@ -7,9 +16,6 @@ import MuiAlert from "@material-ui/lab/Alert";
 import { useParams } from "react-router-dom";
 import api from "../../services/api";
 import { decoder } from "../../services/decoder";
-
-// components
-import { Typography } from "../../components/Wrappers/Wrappers";
 
 export default function Quiz() {
   const token = localStorage.getItem("keepitoAuthorization");
@@ -38,7 +44,7 @@ export default function Quiz() {
     try {
       const quiz = await api.get(`/v1/quizzes/${quizId}`);
       setQuizQuestions(quiz.data.questions);
-      setQuizScore(quiz.data.score);
+      setQuizScore(0);
     } catch (error) {
       setQuizQuestions({});
     }
@@ -81,18 +87,6 @@ export default function Quiz() {
   };
 
   onsubmit = async () => {
-    const reponses = [];
-    quizResponses.forEach(async (value, key) => reponses.push(value));
-    await Promise.all(
-      reponses.map(
-        async (response) =>
-          await sendResponsesQuestions({
-            questionId: response.questionId,
-            correctAlternativeId: response.correctAlternativeId,
-          }),
-      ),
-    );
-
     let count = 0;
     let notattempcount = 0;
 
@@ -116,6 +110,17 @@ export default function Quiz() {
     } else {
       setBooleanonsubmit(true);
       setTotal(count);
+      const reponses = [];
+      quizResponses.forEach(async (value, key) => reponses.push(value));
+      await Promise.all(
+        reponses.map(
+          async (response) =>
+            await sendResponsesQuestions({
+              questionId: response.questionId,
+              correctAlternativeId: response.correctAlternativeId,
+            }),
+        ),
+      );
     }
   };
 
@@ -140,10 +145,13 @@ export default function Quiz() {
   };
 
   return (
-    <div className="Quiz_render_container">
+    <Grid container spacing={1} zeroMinWidth>
       {booleanonsubmit ? (
-        <div className="Quiz-DisplayResult">
-          <h2> Sua nota foi {(quizScore / quizQuestions.length) * total}! </h2>
+        <Grid container alignItems="center" direction="column" spacing={1}>
+          <Typography variant="h1" component="div">
+            Sua nota foi {(quizScore / quizQuestions.length) * total}!
+          </Typography>
+
           <Button
             onClick={() => {
               setBooleanonsubmit(false);
@@ -152,52 +160,48 @@ export default function Quiz() {
               setTotal(0);
             }}
           >
-            {" "}
-            <Replay /> Tentar novamente{" "}
+           Tentar novamente  <Replay /> 
           </Button>
-        </div>
+        </Grid>
       ) : (
-        <div className="Quiz_container_display">
-          {quizQuestions.map((question, index) => {
+        <Grid item lg={12}>
+          {quizQuestions?.map((question, index) => {
             if (Math.abs(activeStep - index) <= 0) {
               return (
-                <div>
-                  <div className="Quiz_que">
-                    <Typography gutterBottom variant="h1" component="div">
-                      {index + 1} - {question.title}
-                    </Typography>
-                  </div>
-                  {question.alternatives.map(
-                    (alternative, index_alternative) => {
-                      index_alternative = index_alternative + 1;
-                      return (
-                        <div
+                <FormControl key={index}>
+                  <Typography variant="h2" component="div">
+                    {index + 1} - {question.title}
+                  </Typography>
+
+                  <RadioGroup key={index}>
+                    {question.alternatives.map(
+                      (alternative, index_alternative) => (
+                        <FormControlLabel
                           key={index_alternative}
-                          className="Quiz_multiple_options"
-                        >
-                          <Typography gutterBottom variant="h3" component="div">
-                            <input
+                          value={alternative.description}
+                          label={alternative.description}
+                          control={
+                            <Radio
+                              color="primary"
                               key={index_alternative}
-                              type="radio"
                               name={question.id}
                               value={alternative.id}
                               checked={!!alternative.selected}
                               onChange={onInputChange}
-                            />{" "}
-                            {alternative.description}
-                          </Typography>
-                        </div>
-                      );
-                    },
-                  )}
-                </div>
+                            />
+                          }
+                        />
+                      ),
+                    )}
+                  </RadioGroup>
+                </FormControl>
               );
             } else {
               return null;
             }
           })}
 
-          <div className="Quiz-MobileStepper">
+          <Grid item>
             <MobileStepper
               variant="dots"
               steps={quizQuestions?.length}
@@ -237,10 +241,10 @@ export default function Quiz() {
                 </Button>
               }
             />
-          </div>
-        </div>
+          </Grid>
+        </Grid>
       )}
       {Snackbarrender()}
-    </div>
+    </Grid>
   );
 }
