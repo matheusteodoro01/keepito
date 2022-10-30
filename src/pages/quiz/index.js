@@ -6,7 +6,6 @@ import {
   Grid,
   FormControl,
   Typography,
-  FormLabel,
   FormControlLabel,
 } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
@@ -44,7 +43,7 @@ export default function Quiz() {
     try {
       const quiz = await api.get(`/v1/quizzes/${quizId}`);
       setQuizQuestions(quiz.data.questions);
-      setQuizScore(0);
+      setQuizScore(quiz.data.score);
     } catch (error) {
       setQuizQuestions({});
     }
