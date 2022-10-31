@@ -3,6 +3,7 @@ import { Grid, CardContent, CardActions, IconButton } from "@material-ui/core";
 import { Link, useParams } from "react-router-dom";
 import classnames from "classnames";
 import Card from "@material-ui/core/Card";
+import Rating from '@mui/material/Rating';
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import ShareIcon from "@material-ui/icons/Share";
 // styles
@@ -52,7 +53,6 @@ export default function DetailsCourse(props) {
   }, []);
 
   function handleSubscribe({ courseId, userId }) {
-    console.log(courseId, userId);
     api
       .post(`/v1/registers?userId=${userId}&courseId=${courseId}`)
       .then((response) => {
@@ -85,6 +85,7 @@ export default function DetailsCourse(props) {
             <Typography gutterBottom variant="h1" component="div">
               {course.name}
             </Typography>
+            <Rating name="read-only" value={2} readOnly />
             <Typography variant="body1" color="text.primary">
               {courseClasses.length} aula(s)
             </Typography>
@@ -132,6 +133,7 @@ export default function DetailsCourse(props) {
                 <Typography variant="h4" component="p">
                   {course.name}
                 </Typography>
+             
                 <Typography>{course.description}</Typography>
               </CardContent>
             </Card>

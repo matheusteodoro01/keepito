@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Grid, CardContent } from "@material-ui/core";
+import { Grid, CardContent, Rai } from "@material-ui/core";
 import { Link, useParams } from "react-router-dom";
 import classnames from "classnames";
+import Rating from "@mui/material/Rating";
 import Card from "@material-ui/core/Card";
 import { InsertDriveFile } from "@material-ui/icons";
 import CardMedia from "@material-ui/core/CardMedia";
@@ -16,6 +17,7 @@ export default function Course(props) {
   var classes = useStyles();
   const [course, setCourse] = useState([]);
   const [courseClasses, setCourseClasses] = useState([]);
+  const [avaliation, setAvaliation] = useState(2);
   let { course_id } = useParams();
 
   async function getFiles(classId) {
@@ -57,9 +59,16 @@ export default function Course(props) {
         </Grid>
         <Grid item sm={8} md={8}>
           <CardContent>
-          <Typography gutterBottom variant="h1" component="div">
+            <Typography gutterBottom variant="h1" component="div">
               {course.name}
             </Typography>
+            <Rating
+              name="simple-controlled"
+              value={avaliation}
+              onChange={(event, newValue) => {
+                setAvaliation(newValue);
+              }}
+            />
             <Typography variant="body1" color="text.primary">
               {courseClasses.length} aula(s)
             </Typography>

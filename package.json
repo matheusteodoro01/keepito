@@ -9,12 +9,16 @@
     "node-fetch": "^2.6.1"
   },
   "dependencies": {
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
     "@material-ui/core": "^4.11.3",
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.61",
     "@material-ui/styles": "^4.11.3",
     "@mdi/js": "^5.9.55",
     "@mdi/react": "^1.4.0",
+    "@mui/icons-material": "^5.10.9",
+    "@mui/material": "^5.10.11",
     "apexcharts": "^3.24.0",
     "axios": "^0.24.0",
     "classnames": "^2.2.6",
