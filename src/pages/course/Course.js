@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { Grid, CardContent, Rai } from "@material-ui/core";
+import { Grid, CardContent, Typography, Button } from "@material-ui/core";
 import { Link, useParams } from "react-router-dom";
 import classnames from "classnames";
 import Rating from "@mui/material/Rating";
 import Card from "@material-ui/core/Card";
 import { InsertDriveFile } from "@material-ui/icons";
 import CardMedia from "@material-ui/core/CardMedia";
+import Avatar from "@mui/material/Avatar";
+import Stack from "@mui/material/Stack";
+
 // styles
 import "react-toastify/dist/ReactToastify.css";
 import useStyles from "./styles";
 // components
-import { Typography, Button } from "../../components/Wrappers/Wrappers";
 import api from "../../services/api";
 
 export default function Course(props) {
@@ -58,9 +60,12 @@ export default function Course(props) {
           </Card>
         </Grid>
         <Grid item sm={8} md={8}>
-          <CardContent>
+          <CardContent >
             <Typography gutterBottom variant="h1" component="div">
               {course.name}
+            </Typography>
+            <Typography variant="body1" color="text.secondary">
+              {course.description}
             </Typography>
             <Rating
               name="simple-controlled"
@@ -69,12 +74,59 @@ export default function Course(props) {
                 setAvaliation(newValue);
               }}
             />
-            <Typography variant="body1" color="text.primary">
-              {courseClasses.length} aula(s)
+            <Typography gutterBottom variant="h3" component="div">
+             Top 5 melhores alunos do curso!
             </Typography>
-            <Typography variant="body1" color="text.secondary">
-              {course.description}
-            </Typography>
+
+            <Stack direction="row" spacing={2}>
+              {[
+                {
+                  name: "Matheus Teodoro",
+                  score: 97,
+                  imageProfile:
+                    "https://media-exp1.licdn.com/dms/image/C4E03AQHpSbIKngBv2w/profile-displayphoto-shrink_200_200/0/1644551927783?e=1672876800&v=beta&t=bxSznWM9Fm9Rc2BI3jMcN6CY0z2QBQsGUQ0hFMGAgxc",
+                },
+                {
+                  name: "Valdir Cezar",
+                  score: 92,
+                  imageProfile:
+                    "https://media-exp1.licdn.com/dms/image/D4D03AQH3My5BWZSxTw/profile-displayphoto-shrink_200_200/0/1665003940308?e=1672876800&v=beta&t=kfe3Mkpdjwfy6tlPVBaT1JEnOX9b7otRch68m5J8e9Q",
+                },
+                {
+                  name: "Matheus Rossato",
+                  score: 89,
+                  imageProfile:
+                    "https://media-exp1.licdn.com/dms/image/C5603AQEHR2IZSIW0bg/profile-displayphoto-shrink_100_100/0/1516307121404?e=1672876800&v=beta&t=un3oXnr7dPzf75BM5x5m13g1Bzut78Zr2ZIS78Gugng",
+                },
+                {
+                  name: "Marcelo Schucman",
+                  score: 87,
+                  imageProfile:"https://media-exp1.licdn.com/dms/image/D4D03AQHV2GJi0wpI_g/profile-displayphoto-shrink_200_200/0/1664826033347?e=1672876800&v=beta&t=1HlkNrrh09rckbCqSTKj-H36-h_iM94LeHtsyjZQd_c"
+                                   },
+                {
+                  name: "Guilherme Castro",
+                  score: 86,
+                  imageProfile:"https://media-exp1.licdn.com/dms/image/C4D03AQFzq6x8Lv5Fkg/profile-displayphoto-shrink_200_200/0/1555488028130?e=1672876800&v=beta&t=nii6a5cpd-BWZnf0bMxfxm4Iq4SACz2qwR3u7tp71w8"
+                       },
+              ].map((user, index) => (
+                <Stack
+                  key={index}
+                  direction="column"
+                  spacing={0}
+                  alignItems={"center"}
+                >
+                  <Avatar alt={user.name} src={user.imageProfile} />
+                  <Typography>
+                    Nota: <b> {user.score}</b>
+                  </Typography>
+                  <Typography>
+                    <b>{user.name}</b>
+                  </Typography>
+                </Stack>
+              ))}
+            </Stack>
+
+          
           </CardContent>
         </Grid>
       </Grid>
