@@ -148,7 +148,7 @@ export default function Quiz() {
       {booleanonsubmit ? (
         <Grid container alignItems="center" direction="column" spacing={1}>
           <Typography variant="h1" component="div">
-            Sua nota foi {(quizScore / quizQuestions.length) * total}!
+            Sua nota foi {((quizScore / quizQuestions.length) * total).toFixed(1)}!
           </Typography>
 
           <Button
