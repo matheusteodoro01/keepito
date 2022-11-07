@@ -12,23 +12,36 @@ import Typography from "@material-ui/core/Typography";
 import api from "../../services/api";
 
 // components
-import PageTitle from "../../components/PageTitle/PageTitle";
+import Loading from "../../components/loading";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 
 export default function Menu() {
   const [courses, setCourses] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  function fetchData() {
-    api.get("/v1/courses", {}).then((response) => {
-      console.log(response.data.content)
-      setCourses(response.data.content);
-    });
+   const fetchData = async () => {
+    try {
+      const res = await api.get("/v1/courses");
+      setCourses(res.data.content);
+      setTimeout(() => setLoading(false), "1000");
+      throw new Error('')
+    } catch (error) {
+      toast("Ops, não conseguimos buscar por seus cursos!", { type: "error",delay:'1000' });
+    }
   }
+
   useEffect(() => {
     fetchData();
   }, []);
 
   return (
     <>
+    <ToastContainer />
+      {loading ? (
+        <Loading />
+      ) : (
       <Grid container spacing={2}>
         {courses.map((course,index) => {
           if(course.classes.length > 0) {
@@ -66,6 +79,7 @@ export default function Menu() {
           
         })}
       </Grid>
+      )}
     </>
   );
 }
