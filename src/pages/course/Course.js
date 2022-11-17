@@ -89,10 +89,11 @@ export default function Course(props) {
         </Grid>
       </Grid>
       <Grid container spacing={1} alignItems={"center"} direction="column">
-        <Typography variant="h5" component="div">
+        <Typography gutterBottom variant="h4" component="div">
           Melhores alunos do curso!
         </Typography>
-        <Stack direction="row" spacing={2} alignItems="center">
+    
+        <Stack direction="row" spacing={3} alignItems="center">
           {[
             {
               name: "Matheus Teodoro",
@@ -131,23 +132,30 @@ export default function Course(props) {
               spacing={1}
               alignItems={"center"}
             >
+               <Typography variant="h6" >
+               <strong>{index+1}°</strong>
+            </Typography>
+            
               <Chip
                 avatar={<Avatar alt={user.name} src={user.imageProfile} />}
-                label={user.name}
+                label={<strong>{user.name}</strong>}
                 variant="outlined"
                 color="info"
+                style={{fontSize: 20}}
               />
               <Chip
-                label={user.score + " Pontos"}
+                label={<strong>{user.score}  Pontos</strong>}
                 variant="outlined"
-                color="info"
+                color="success"
+                style={{fontSize: 20}}
               />
             </Stack>
           ))}
         </Stack>
+ 
         <Grid container spacing={1}>
           <Grid item sm={10} md={8}>
-            <Typography variant="h3" component="div">
+            <Typography variant="h3" gutterBottom component="div">
               Conteudo
             </Typography>
           </Grid>
