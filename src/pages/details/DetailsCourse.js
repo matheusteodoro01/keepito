@@ -94,7 +94,7 @@ export default function DetailsCourse(props) {
               {course.description}
             </Typography>
             <Stack direction="row" spacing={1}>
-              <Chip label={courseClasses.length + " Questões"} color="info" />
+              <Chip label={courseClasses.length + " Aulas"} color="info" />
               {subscribe && <Chip label={"Inscrito"} color="success" />}
               <Chip label={"Novo"} color="warning" />
             </Stack>
