@@ -50,22 +50,20 @@ export default function Course(props) {
   return (
     <>
       <Grid container spacing={1}>
-        <Grid item sm={4} md={4}>
-          <Card
-            style={{
-              boxShadow: "0 5px 8px 0 rgba(0, 0, 0, 0.3)",
-              backgroundColor: "#fafafa",
-            }}
-          >
-            <CardMedia
-              component="img"
-              maxWidth="345"
-              maxHeight="345"
-              image="https://escuelafullstack.com/web/image/slide.channel/18/image_512"
-              alt="green iguana"
-            />
-          </Card>
-        </Grid>
+ 
+        <CardMedia
+          component="img"
+          style={{
+            maxWidth: 380,
+            maxHeight: 350,
+            boxShadow: "0 5px 8px 0 rgba(0, 0, 0, 0.3)",
+            borderRadius: "10px"
+          }}
+   
+          image="https://loiane.com/assets/images/assets/curso-javaSE-loiane.png"
+          alt="green iguana"
+        />
+    
         <Grid item sm={8} md={8}>
           <CardContent>
             <Typography variant="h2" component="div">
