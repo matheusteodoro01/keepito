@@ -3,10 +3,11 @@ import {
   Grid,
   CardContent,
   CardActions,
-  IconButton,
-  Modal,
-  Box,
-} from "@material-ui/core";
+  Typography,
+  Button,
+  Chip,
+  Stack
+} from "@mui/material";
 import { Link, useParams } from "react-router-dom";
 import Card from "@material-ui/core/Card";
 import FavoriteIcon from "@material-ui/icons/Favorite";
@@ -18,7 +19,6 @@ import "react-toastify/dist/ReactToastify.css";
 import useStyles from "../../components/styles";
 
 // components
-import { Typography, Button } from "../../components/Wrappers/Wrappers";
 import CardMedia from "@material-ui/core/CardMedia";
 import api from "../../services/api";
 import { decoder } from "../../services/decoder";
@@ -69,10 +69,10 @@ export default function ClasseDetails() {
 
         <Grid item sm={8} md={8}>
           <CardContent>
-            <Typography gutterBottom variant="h1" component="div">
+            <Typography gutterBottom variant="h2" component="div">
               {classe.name}
             </Typography>
-            <Typography variant="body1" color="text.secondary">
+            <Typography variant="body1" color="InfoText">
               {classe.description}
             </Typography>
 
@@ -82,7 +82,7 @@ export default function ClasseDetails() {
       </Grid>
       <Grid container spacing={1}>
         <Grid item sm={15} md={12} lg={12}>
-          <Typography gutterBottom variant="h2" component="div">
+          <Typography gutterBottom variant="h3" component="div">
             Conteudo
           </Typography>
         </Grid>
@@ -90,20 +90,35 @@ export default function ClasseDetails() {
           <Grid item sm={12} md={12} lg={12} key={quiz.id}>
             <Card>
               <CardContent>
-                <Typography variant="h4" component="p">
-                  {quiz.name}
-                </Typography>
-                <Typography>{quiz.description}</Typography>
-                <Typography>{quiz.questions.length} Questões</Typography>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  size="small"
-                  component={Link}
-                  to={`/app/course/quiz/${quiz.id}`}
-                >
-                  Acessar Quiz
-                </Button>
+                <Stack direction="column" spacing={1}>
+                  <Stack direction="row" spacing={1}>
+                    <Typography variant="h4" component="p">
+                      {quiz.name}
+                    </Typography>
+                  </Stack>
+                  <Typography>{quiz.description}</Typography>
+                  <Stack direction="row" spacing={1}>
+                    <Chip
+                      label={quiz.questions.length + " Questões"}
+                      color="info"
+                    />
+                    <Chip label={quiz.score + " Minutos"} color="error" />
+                   
+                    <Chip label={quiz.score + " Pontos"} color="success" />
+                    <Chip label={quiz.theme} color="warning" />
+                  </Stack>
+
+                  <Button
+                    variant="contained"
+                    color="success"
+                    size="small"
+                    component={Link}
+                    disabled={!!quiz.questions.length == 0}
+                    to={`/app/course/quiz/${quiz.id}`}
+                  >
+                    Iniciar
+                  </Button>
+                </Stack>
               </CardContent>
             </Card>
           </Grid>
