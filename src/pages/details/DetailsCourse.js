@@ -1,19 +1,27 @@
 import React, { useState, useEffect } from "react";
-import { Grid, CardContent, CardActions, IconButton } from "@material-ui/core";
+import {
+  Grid,
+  CardContent,
+  CardActions,
+  IconButton,
+  CardMedia,
+  Typography,
+  Button,
+  Card,
+  Rating,
+  Chip,
+  Stack,
+} from "@mui/material";
 import { Link, useParams } from "react-router-dom";
 import classnames from "classnames";
-import Card from "@material-ui/core/Card";
-import Rating from '@mui/material/Rating';
+
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import ShareIcon from "@material-ui/icons/Share";
+
 // styles
 import "react-toastify/dist/ReactToastify.css";
 import useStyles from "./styles";
 
-// components
-
-import { Typography, Button } from "../../components/Wrappers/Wrappers";
-import CardMedia from "@material-ui/core/CardMedia";
 import api from "../../services/api";
 import { decoder } from "../../services/decoder";
 
@@ -63,40 +71,34 @@ export default function DetailsCourse(props) {
   return (
     <>
       <Grid container spacing={1}>
-        <Grid item sm={4} md={4}>
-          <Card
-            style={{
-              boxShadow: "0 5px 8px 0 rgba(0, 0, 0, 0.3)",
-              backgroundColor: "#fafafa",
-            }}
-          >
-            <CardMedia
-              component="img"
-              maxWidth="345"
-              maxHeight="345"
-              image="https://escuelafullstack.com/web/image/slide.channel/18/image_512"
-              alt="green iguana"
-            />
-          </Card>
-        </Grid>
+        <CardMedia
+          component="img"
+          style={{
+            maxWidth: 380,
+            maxHeight: 350,
+            boxShadow: "0 5px 8px 0 rgba(0, 0, 0, 0.3)",
+            borderRadius: "10px"
+          }}
+   
+          image="https://escuelafullstack.com/web/image/slide.channel/18/image_512"
+          alt="green iguana"
+        />
 
         <Grid item sm={8} md={8}>
-          <CardContent>
-            <Typography gutterBottom variant="h1" component="div">
+          <Stack direction="column" spacing={1}>
+            <Typography  variant="h2">
               {course.name}
             </Typography>
             <Rating name="read-only" value={2} readOnly />
-            <Typography variant="body1" color="text.primary">
-              {courseClasses.length} aula(s)
-            </Typography>
             <Typography variant="body1" color="text.secondary">
               {course.description}
             </Typography>
-            <Typography variant="body1" color="text.secondary">
-              {subscribe && "Você ja está inscrito nesse curso!"}
-            </Typography>
-
-            <CardActions>
+            <Stack direction="row" spacing={1}>
+              <Chip label={courseClasses.length + " Questões"} color="info" />
+              {subscribe && <Chip label={"Inscrito"} color="success" />}
+              <Chip label={"Novo"} color="warning" />
+            </Stack>
+            <Stack direction="column" spacing={1}>
               <Button
                 variant="contained"
                 color="primary"
@@ -110,31 +112,25 @@ export default function DetailsCourse(props) {
               >
                 {!subscribe ? "Inscrever-se" : "Acessar"}
               </Button>
-              <IconButton aria-label="add to favorites">
-                <FavoriteIcon />
-              </IconButton>
-              <IconButton aria-label="share">
-                <ShareIcon />
-              </IconButton>
-            </CardActions>
-          </CardContent>
+            </Stack>
+          </Stack>
         </Grid>
       </Grid>
       <Grid container spacing={1}>
         <Grid item sm={10} md={8}>
-          <Typography gutterBottom variant="h2" component="div">
+          <Typography gutterBottom variant="h3" component="div">
             Conteudo
           </Typography>
         </Grid>
-        {courseClasses.map((course) => (
-          <Grid item sm={12} md={12} lg={12} key={course.id}>
+        {courseClasses.map((classe) => (
+          <Grid item sm={12} md={12} lg={12} key={classe.id}>
             <Card>
               <CardContent>
-                <Typography variant="h4" component="p">
-                  {course.name}
+                <Typography variant="h5" component="p">
+                  {classe.name}
                 </Typography>
-             
-                <Typography>{course.description}</Typography>
+
+                <Typography>{classe.description}</Typography>
               </CardContent>
             </Card>
           </Grid>
