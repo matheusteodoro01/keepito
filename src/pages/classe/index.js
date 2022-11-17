@@ -61,7 +61,7 @@ export default function ClasseDetails() {
               component="img"
               maxWidth="345"
               maxHeight="345"
-              image="https://escuelafullstack.com/web/image/slide.channel/18/image_512"
+              image="https://loiane.com/assets/images/assets/curso-javaSE-loiane.png"
               alt="green iguana"
             />
           </Card>
